@@ -12,6 +12,7 @@ import javax.swing.border.Border;
 import javax.swing.BorderFactory;
 import javax.swing.JTable;  
 import java.util.*;
+import java.awt.FocusTraversalPolicy;
 import javax.swing.SortingFocusTraversalPolicy;
 
 
@@ -21,7 +22,7 @@ public class obj extends Frame implements Serializable {
    Vector<Vector> rowData = new Vector<Vector>();
    int age,number,count,newage,option = 0,counter=0,done=1,cc=0;
    long mobile,newmobile;
-   boolean exists = false, filethere = false,n=false;
+   boolean exists = false, filethere = false,n=false, f1 = false, f2 = false, f3 = false, f4 = false, f5 = false;
    ArrayList<obj> o = new ArrayList<obj>();
    HashMap<Integer, String> map = new HashMap<Integer, String>();    // Used to store records 
 
@@ -35,9 +36,6 @@ public class obj extends Frame implements Serializable {
    JPanel pn3 = new JPanel();
    JPanel pn4 = new JPanel();
    Border border = BorderFactory.createLineBorder(Color.BLACK, 5);
-   //FocusTraversalPolicy policy = new SortingFocusTraversalPolicy(pn1);
-   //Border loweredBorder = BorderFactory.createBevelBorder( BevelBorder.LOWERED );
-   //Border border1 = BorderFactory.createLineBorder(Color.WHITE, 5);
    JPanel pn5 = new JPanel();
 
    Font myFont = new Font("Serif",Font.BOLD,18);
@@ -52,7 +50,6 @@ public class obj extends Frame implements Serializable {
       f.addWindowListener(new WindowAdapter() {
         public void windowClosing(WindowEvent e) {
                System.exit(0);
-               // dispose();
         }
       });
 
@@ -247,27 +244,26 @@ public class obj extends Frame implements Serializable {
 
       });
       int count = 0;
-               String[] description = {"5","10","20","50"};
-                for (int i = 0; i < 4; i++)
+               String[] description = {"0","5","10","20","50"};
+                for (int i = 0; i < 5; i++)
                   drop.addItem(description[count++]);
 
       drop.addActionListener(new ActionListener() {
                   public void actionPerformed(ActionEvent e) {
                      Object ob;
-                     //cc = 0;
-                     if(!n)
-                        done-=cc;
-                     if(n)
-                        n = false;
+                     done-=cc;
                      System.out.println(((JComboBox) e.getSource()).getSelectedItem());
                      ob  =  ((JComboBox) e.getSource()).getSelectedItem();
                      String val = String.valueOf(ob);
                      option = Integer.parseInt(val);
-                     System.out.println("Option is "+option);
-                     System.out.println("VAlue of done at drop"+done);
-                     viewAll(option,done);
-                     done+=cc;
-                     Button5();
+                     if(option != 0) { 
+                        System.out.println("Option is "+option);
+                        System.out.println("VAlue of done at drop"+done);
+                        viewAll(option,done);
+                        done+=cc;
+                        System.out.println("Va"+done);
+                        Button5();
+                     }
                   }
       });
 
@@ -275,12 +271,13 @@ public class obj extends Frame implements Serializable {
       btnNext.addActionListener(new ActionListener() {
 
                   public void actionPerformed(ActionEvent e) {
-                     n = true;
                      System.out.println("Value of done at next is "+done);
                      System.out.println("Value of done is :"+done);  
                      cc = 0; 
                      counter++;
                      rowData.clear();
+                     viewAll(5,done);
+                     done+=cc;
                      Button5();
                   }
       });
@@ -292,11 +289,13 @@ public class obj extends Frame implements Serializable {
                      done -= (cc+option);
                      if( done <= 0){
                         done = 1;
+                        n = true;
                      }
                      cc = 0;
                      System.out.println("Value of done at prev is "+done);
                      viewAll(option,done);
                      done+=cc;
+                     System.out.println("VALalue of done at prev is "+done);
                      counter--;
                      Button5();
                   }
@@ -353,6 +352,7 @@ public class obj extends Frame implements Serializable {
 
    void Button1(){
                      
+                    
                      pn1.removeAll();
                      pn1.setBackground(Color.WHITE);
                      pre();
@@ -360,8 +360,6 @@ public class obj extends Frame implements Serializable {
                      btn1.setBackground(Color.orange);
                      pn1.setLayout(new GridBagLayout() );
 
-                    
-                   //  f.setFocusTraversalPolicy(policy);
 
                      GridBagConstraints c = new GridBagConstraints();
                      c.fill = GridBagConstraints.BOTH;      
@@ -387,6 +385,7 @@ public class obj extends Frame implements Serializable {
                      c.gridx = 0;
                      c.gridy = 0;
                      pn1.add(lblName,c);
+                     
                      
                      lblReg = new JLabel("Register No",JLabel.CENTER); 
                      lblReg.setBorder(border);
@@ -416,8 +415,11 @@ public class obj extends Frame implements Serializable {
                      c.gridx = 1;
                      c.gridy = 1;
                      pn1.add(tfReg,c);
+                     f1 = true;
+                     tfReg.requestFocusInWindow();
+                     
+                    
 
-                     lblName = new JLabel("",JLabel.CENTER); 
                      lblName.setBorder(border);
                      lblName.setText("<html><font color = black> Name: </html>");  
                      lblName.setFont(myFont);
@@ -445,6 +447,17 @@ public class obj extends Frame implements Serializable {
                      c.gridx = 1;
                      c.gridy = 2;
                      pn1.add(tfName,c);
+
+                     tfReg.addActionListener(
+                     new ActionListener()
+                        {
+                        public void actionPerformed( ActionEvent e )
+                        { 
+                           tfName.requestFocusInWindow();
+                        }
+                     } );
+
+
 
                      lblage = new JLabel("",JLabel.CENTER); 
                      lblage.setBorder(border);
@@ -475,6 +488,20 @@ public class obj extends Frame implements Serializable {
                      c.gridy = 3;
                      pn1.add(tfAge,c);
 
+
+                     tfName.addActionListener(
+                     new ActionListener()
+                        {
+                        public void actionPerformed( ActionEvent e )
+                        { 
+                           tfAge.requestFocusInWindow();
+                        }
+                     } );
+
+
+
+
+
                      lblmobile = new JLabel("",JLabel.CENTER); 
                      lblmobile.setBorder(border);
                      lblmobile.setText("<html><font color = black> Mobile: </html>");  
@@ -504,6 +531,17 @@ public class obj extends Frame implements Serializable {
                      c.gridy = 4;
                      pn1.add(tfMobile,c);
 
+
+                     tfAge.addActionListener(
+                     new ActionListener()
+                        {
+                        public void actionPerformed( ActionEvent e )
+                        { 
+                           tfMobile.requestFocusInWindow();
+                        }
+                     } );
+
+
                      c.insets = new Insets(2, 2, 2, 2);
                      c.weightx = 0; 
                      c.weighty = 0;
@@ -515,6 +553,17 @@ public class obj extends Frame implements Serializable {
                      c.gridy = 5;
 
                      pn1.add(btnInsert,c);
+
+                     tfMobile.addActionListener(
+                           new ActionListener()
+                           {
+                           public void actionPerformed( ActionEvent e )
+                           { 
+                              btnInsert.requestFocusInWindow();
+                           }
+                     } );
+
+
 
                      c.insets = new Insets(2, 2, 2, 2);
                      c.weightx = 0; 
@@ -529,6 +578,7 @@ public class obj extends Frame implements Serializable {
                      pn1.add(btnClear,c);
                      f.setVisible(true);
                }
+
 
    void Button2(){
 
@@ -591,6 +641,7 @@ public class obj extends Frame implements Serializable {
                c.gridx = 1;
                c.gridy = 1;
                pn1.add(tfUpdate,c);
+               tfUpdate.requestFocusInWindow();
 
                lblOptions = new JLabel("",JLabel.CENTER);
                lblOptions.setText("<html><font color = black size = 120%> 1. Name: </html>");  
@@ -621,6 +672,17 @@ public class obj extends Frame implements Serializable {
                c.gridy = 2;
                pn1.add(tfUpdatedName,c);
 
+                tfUpdate.addActionListener(
+                           new ActionListener()
+                           {
+                           public void actionPerformed( ActionEvent e )
+                           { 
+                              tfUpdatedName.requestFocusInWindow();
+                           }
+                     } );
+
+
+
                lblOptions = new JLabel("",JLabel.CENTER);
                lblOptions.setBorder(border);
                lblOptions.setText("<html><font color = black size = 120%> 2. Age </html>");  
@@ -649,6 +711,16 @@ public class obj extends Frame implements Serializable {
                c.gridx = 1;
                c.gridy = 3;
                pn1.add(tfUpdatedAge,c); 
+
+                tfUpdatedName.addActionListener(
+                           new ActionListener()
+                           {
+                           public void actionPerformed( ActionEvent e )
+                           { 
+                              tfUpdatedAge.requestFocusInWindow();
+                           }
+                     } );
+
 
                lblOptions = new JLabel("",JLabel.CENTER);
                lblOptions.setBorder(border);
@@ -680,6 +752,16 @@ public class obj extends Frame implements Serializable {
                c.gridy = 4;
                pn1.add(tfUpdatedMobile,c);
 
+                tfUpdatedAge.addActionListener(
+                           new ActionListener()
+                           {
+                           public void actionPerformed( ActionEvent e )
+                           { 
+                              tfUpdatedMobile.requestFocusInWindow();
+                           }
+                  } );
+
+
                c.insets = new Insets(2, 2, 2, 2);
                c.weightx = 0; 
                c.weighty = 0;
@@ -691,6 +773,16 @@ public class obj extends Frame implements Serializable {
                c.gridy = 5;
 
                pn1.add(btnUpdate,c);
+
+                tfUpdatedMobile.addActionListener(
+                           new ActionListener()
+                           {
+                           public void actionPerformed( ActionEvent e )
+                           { 
+                              btnUpdate.requestFocusInWindow();
+                           }
+                  } );
+
 
                c.insets = new Insets(2, 2, 2, 2);
                c.weightx = 0; 
@@ -754,7 +846,7 @@ public class obj extends Frame implements Serializable {
             c.gridheight = 1;
             c.gridx = 0;
             c.gridy = 1;
-          //  c.anchor =  GridBagConstraints.NORTH;
+
             pn1.add(lblReg,c);
 
             tfView = new JTextField(20); 
@@ -771,6 +863,8 @@ public class obj extends Frame implements Serializable {
             c.gridx = 1;
             c.gridy = 1;
             pn1.add(tfView,c);
+            tfView.requestFocusInWindow();
+
             c.insets = new Insets(2, 2, 2, 2);
             c.weightx = 0; 
             c.weighty = 0;
@@ -781,6 +875,15 @@ public class obj extends Frame implements Serializable {
             c.gridx = 0;
             c.gridy = 2;
             pn1.add(btnView,c);
+
+            tfView.addActionListener(
+                           new ActionListener()
+                           {
+                           public void actionPerformed( ActionEvent e )
+                           { 
+                              btnView.requestFocusInWindow();
+                           }
+            } );
 
             tfViewarea = new JTextField(20);
             tfViewarea.setFont(myFont);
@@ -862,6 +965,7 @@ public class obj extends Frame implements Serializable {
          c.gridy = 1;
          tfDelete.setPreferredSize( new Dimension(100,20) );
          pn1.add(tfDelete,c);
+         tfDelete.requestFocusInWindow();
 
          c.insets = new Insets(2, 2, 2, 2);
          c.weightx = 0; 
@@ -874,6 +978,16 @@ public class obj extends Frame implements Serializable {
          c.gridy = 2;
          btnDelete.setPreferredSize( new Dimension(100,30) );
          pn1.add(btnDelete,c);
+
+         tfDelete.addActionListener(
+                           new ActionListener()
+                           {
+                           public void actionPerformed( ActionEvent e )
+                           { 
+                              btnDelete.requestFocusInWindow();
+                           }
+         } );
+
          c.insets = new Insets(2, 2, 2, 2);
          c.weightx = 0; 
          c.weighty = 0;
@@ -918,9 +1032,6 @@ public class obj extends Frame implements Serializable {
                c.gridy = 0;
                pn1.add(lblName,c);
 
-
-              if( counter != 0 ){
-
                   c.insets = new Insets(2, 2, 2, 2);
                   c.weightx = 0; 
                   c.weighty = 0;
@@ -931,8 +1042,6 @@ public class obj extends Frame implements Serializable {
                   c.gridx = 3;
                   c.gridy = 3;
                   pn1.add(btnPrevious,c);
-
-             }
 
                if( !filethere ){
 
@@ -969,7 +1078,12 @@ public class obj extends Frame implements Serializable {
                columnNames.addElement("Name: ");
                columnNames.addElement("Age: ");
                columnNames.addElement("Mobile No: ");
-               JTable table = new JTable(rowData, columnNames);
+               JTable table = new JTable(rowData, columnNames){ 
+                   public boolean isCellEditable(int rowIndex,int columnIndex){
+
+                            return false;
+                          }
+               };
                c.weightx = 0; 
                c.weighty = 0;
                c.insets = new Insets(2, 2, 2, 2);
@@ -982,17 +1096,12 @@ public class obj extends Frame implements Serializable {
                
                table.setRowHeight(30);
 
-              // DefaultTableModel tableModel = new DefaultTableModel() {
-              //      public boolean isCellEditable(int row, int column) {                // Setting the table to non-editable
-              //         return false;
-              //      }
-              //  };
-              //  table.setModel(tableModel);
-
                JScrollPane scrollPane = new JScrollPane(table);
                pn1.add(scrollPane,c);
                f.setVisible(true); 
    }
+
+ 
 
    void pre(){
 
