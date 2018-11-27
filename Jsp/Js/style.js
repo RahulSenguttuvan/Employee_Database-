@@ -1,17 +1,31 @@
-
 function load(){
-
 	
-	document.getElementById("1").style.display = "none";
-	document.getElementById("2").style.display = "none";
-	document.getElementById("3").style.display = "none";
-	document.getElementById("4").style.display = "none";
-	document.getElementById("5").style.display = "none";
+	for( var i = 1; i < 6; i++ ){
+		document.getElementById(i).style.display = "none";
+		document.getElementById("b"+i).style.background = "";
+		document.getElementById("b"+i).style.fontSize = "100%";
 
+	} 
+}
+function Open(name,button){
+	load();
+	document.getElementById("b"+name).style.background = "#FFA500";
+	document.getElementById("b"+name).style.fontSize = "150%";
+	document.getElementById("b"+name).style.bold;	
+	document.getElementById(name).style.display = "";
 }
 
-function Open(name){
+function required(){
 
-	document.getElementsByClassName(name).style.display = "flex";;
+	var empt1 = document.forms["form2"]["firstname"].value;
+	var empt2 = document.forms["form2"]["Age"].value;
+	var empt3 = document.forms["form2"]["Mobile"].value;
 
-}
+	if( empt1=="" && empt2 == "" && empt3 == "" )
+	{
+		alert("You have not Updated anything, please enter in one field");
+		return false;
+	}
+	else
+		 return true;
+}	
