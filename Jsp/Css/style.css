@@ -172,4 +172,49 @@ input{
 	max-height: 8vh;
 	margin: 2%;
 }
+table {
+	min-height: 50vh;
+	max-height: 70vh;
+	min-width: 45vw;
+	max-width: 30vw;
+	padding: 1%;
+	font-size: 100%;	
+    border: 1px solid black;
+}
+.tbutton{
+	margin-top: 0%;
+	height: 8vh;
+	width: 5vw;
+	min-width: 4vw;
+	min-height: 5vh;
+	max-width: 7vw;
+	max-height: 4vh;
+	font-size:2vh;
+	padding: 2%;
 
+
+}
+thead,tbody,tfoot{
+	padding: 2%;
+}
+th,td,tr{
+
+	border: 1px solid black;
+	color:white;
+	text-align: center;
+	padding: 2%;
+}
+
+.pagination{
+	display: flex;
+	flex-flow: row;
+	align-items: center;
+	flex-wrap: wrap;
+	min-width: 45vw;
+	justify-content: center;
+}
+div.page{
+	flex: 1;
+	justify-content: center;
+	padding:1%;
+}

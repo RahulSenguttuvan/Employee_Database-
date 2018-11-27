@@ -7,12 +7,12 @@ import java.util.HashMap;
 import java.util.Map; 
 
 public class obj implements Serializable{
-	String name,filename;
-	int age,number,count;
-	long mobile;
-	boolean exists = false;
-	ArrayList<obj> o = new ArrayList<obj>();
-	HashMap<Integer, String> map = new HashMap<Integer, String>(); 	// Used to store records 
+	public String name,filename;
+	public int age,number,count;
+	public long mobile;
+	public boolean exists = false;
+	public ArrayList<obj> o = new ArrayList<obj>();
+	public HashMap<Integer, String> map = new HashMap<Integer, String>(); 	// Used to store records 
 		
 
 	public void update(){		
@@ -20,8 +20,12 @@ public class obj implements Serializable{
 		for(int  i = 0; i < o.size(); i++ ){
 			if( this.number == o.get(i).number ){
 				System.out.println("Found!");
+
+					if(this.name != "")
 						o.get(i).name = this.name; 
-						o.get(i).age = this.age; 
+					if(this.age != 0)
+						o.get(i).age = this.age;
+					if(this.mobile != 0) 
 						o.get(i).mobile = this.mobile; 
 				}
 		}
@@ -87,13 +91,35 @@ public class obj implements Serializable{
 		return this;
 	}
 
+	public ArrayList<obj> viewAll(int option){
+		int j = 1,c=0;
+		boolean flag = false;
+		ArrayList<obj> o1 = new ArrayList<obj>();
+		mapread();
+      	this.filename = "sample0.ser";
+
+      	while(exists = new File(this.filename).exists()){
+      	  objread();
+         for ( int i = 0; i < o.size(); i++ ){
+     	   c++;
+           o1.add(o.get(i));
+   		   if( c >= option ){
+   		   		flag = true;
+   		   		break;
+   		   }
+        }
+        this.filename = "sample"+j+".ser";
+        j++;
+        if(flag)
+        	break;
+  	}
+  	return o1;
+}
+
 	public ArrayList<obj> view(){
 
 			System.out.println("The file is :"+this.filename);
 			objread();
-	 //   		for( int i = 0; i < o.size(); i++ ){
-	 //   			System.out.println(o.get(i));		
-		// }
 			return o;
 	}
 
@@ -137,22 +163,22 @@ public class obj implements Serializable{
 
 	public String get(String number, String name, String age, String mobile){
 
-		this.number = Integer.parseInt(number);
+		if(number != "")
+			this.number = Integer.parseInt(number);
 		this.name = name;
-		this.age = Integer.parseInt(age);
-		this.mobile = Long.parseLong(mobile);
+		if(age != "")
+			this.age = Integer.parseInt(age);
+		if(mobile != "")
+			this.mobile = Long.parseLong(mobile);
 		return " This Works! ";
 
 	}
 
-	public String get1(){
+	public void getnumber(int number){
 
-		
-		return " This Works! till here!";
+			this.number = number;
 
 	}
-
-
 
 	public void delete(){
 
@@ -161,7 +187,7 @@ public class obj implements Serializable{
 		for( int i = 0; i < o.size(); i++ ){
 
 			if( this.number == o.get(i).number ){
-				mapread();
+				//mapread();
 				map.remove(o.get(i).number);
 				mapwrite();
 				o.remove(i);
@@ -170,10 +196,10 @@ public class obj implements Serializable{
 		objwrite();
 	}
 
-	public String toString() {
+	// public String toString() {
 
-		return "Register:"+this.number+" "+"Name:"+this.name+" "+"Age:"+this.age+" "+"Mobile:"+this.mobile;
-	}
+	// 	return "Register:"+this.number+" "+"Name:"+this.name+" "+"Age:"+this.age+" "+"Mobile:"+this.mobile;
+	// }
 
 	public void mapread(){
 
@@ -213,45 +239,5 @@ public class obj implements Serializable{
 		Scanner sc = new Scanner(System.in);
 		db.filename = "sample0.ser";
 		boolean exists = false;
-		// int choice;
-		// do{ 
-		// 	System.out.println("Would you like to 1. Add records ? 2. Update existing records ? 3. View the file ? 4.Delete a record? 5. Exit ?");
-		// 	choice = sc.nextInt();
-		// 	sc.nextLine();
-		// 	if ( choice == 1 )
-		// 	{
-		// 		db.getvalue();
-		// 		db.mapread();	
-		// 		db.mapwrite();
-		// 		db.object();					// Onwards to create the file 
-		// 	}
-		// 	else if ( choice == 2 ){
-		// 		System.out.println("Enter the Employee's Register No. whoose record you wish to manipulate  : ");
-		// 		db.number = sc.nextInt();
-		// 		sc.nextLine();
-		// 		db.mapread();
-		// 		db.view();
-		// 		db.update();
-				
-		// 	}
-		// 	else if( choice == 3 ){
-		// 		System.out.println("Enter the Employee's Register No. who you want to view  : ");
-		// 		db.number = sc.nextInt();
-		// 		sc.nextLine();
-		// 		db.mapread();
-		// 		db.view();
-		// 	}
-		// 	else if(choice == 4){
-		// 		System.out.println("Enter the Employee's Register No. whom you want to delete  : ");
-		// 		db.number = sc.nextInt();
-		// 		sc.nextLine();
-		// 		db.mapread();
-		// 		db.delete();
-		// 	}
-		// 	else {
-				
-		// 		break;
-		// 	}
-		//   }while( choice != 5 );
 	}
 }	

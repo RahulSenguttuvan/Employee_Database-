@@ -9,11 +9,10 @@
 	 age = request.getParameter("Age");
 	 mobile = request.getParameter("Mobile");
 
-	 out.print(ob.get(number,name,age,mobile));
-	 out.print(ob.getvalue());
+	 ob.get(number,name,age,mobile);
+	 ob.getvalue();
 	 ob.mapread();
-	 out.print(ob.object());
 	 ob.mapwrite();
-
-
+	 ob.object();
+	 response.sendRedirect("Employee.jsp");
 %>

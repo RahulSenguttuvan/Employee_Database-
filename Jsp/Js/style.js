@@ -4,7 +4,7 @@ function load(){
 		document.getElementById(i).style.display = "none";
 		document.getElementById("b"+i).style.background = "";
 		document.getElementById("b"+i).style.fontSize = "100%";
-
+		
 	} 
 }
 function Open(name,button){
@@ -29,3 +29,13 @@ function required(){
 	else
 		 return true;
 }	
+
+function call(){
+
+	alert("Details have been Inserted!");
+}
+function get(){
+
+	var x = document.getElementById("reg").value;
+	
+}
