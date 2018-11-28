@@ -4,14 +4,14 @@
 
 	 obj ob = new obj();
 
- 	 number = request.getParameter("reg");
-	 name = request.getParameter("firstname");
-	 age = request.getParameter("Age");
-	 mobile = request.getParameter("Mobile");
+ 	 number = request.getParameter("updatereg");
+	 name = request.getParameter("updatefirstname");
+	 age = request.getParameter("updateage");
+	 mobile = request.getParameter("updatemobile");
 
 	 ob.get(number,name,age,mobile);
 	 ob.mapread();
 	 ob.objread();
 	 ob.update();
-	 response.sendRedirect("Employee.jsp");
+	 //response.sendRedirect("Employee.jsp");
 %>

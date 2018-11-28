@@ -34,8 +34,3 @@ function call(){
 
 	alert("Details have been Inserted!");
 }
-function get(){
-
-	var x = document.getElementById("reg").value;
-	
-}

@@ -4,7 +4,7 @@
 
 	 obj ob = new obj();
 
- 	 number = request.getParameter("reg");
+ 	 number = request.getParameter("deletereg");
  	 name = "";
  	 age = "";
  	 mobile = "";
@@ -13,5 +13,5 @@
 	 ob.delete();	
 	 ob.mapread();
 	 out.print(ob.view());
-	 response.sendRedirect("Employee.jsp");
+	// response.sendRedirect("Employee.jsp");
 %>

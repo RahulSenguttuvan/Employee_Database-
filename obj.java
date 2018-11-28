@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class obj implements Serializable{
 	public String name,filename;
-	public int age,number,count;
+	public int age,number,count,recordcount=0,pagecount=0;
 	public long mobile;
 	public boolean exists = false;
 	public ArrayList<obj> o = new ArrayList<obj>();
@@ -93,15 +93,18 @@ public class obj implements Serializable{
 
 	public ArrayList<obj> viewAll(int option){
 		int j = 1,c=0;
+		this.recordcount= this.pagecount;
 		boolean flag = false;
 		ArrayList<obj> o1 = new ArrayList<obj>();
 		mapread();
       	this.filename = "sample0.ser";
-
       	while(exists = new File(this.filename).exists()){
       	  objread();
          for ( int i = 0; i < o.size(); i++ ){
      	   c++;
+     	   if( c < this.recordcount )
+     	   		continue;
+     	   this.recordcount++;
            o1.add(o.get(i));
    		   if( c >= option ){
    		   		flag = true;
@@ -114,7 +117,40 @@ public class obj implements Serializable{
         	break;
   	}
   	return o1;
-}
+	}
+
+	public int counter(){
+
+		return this.recordcount;
+	}
+
+	public ArrayList<obj> viewNext(int option){
+		this.pagecount += counter();
+		int j = 1,c=0,k=0;
+		boolean flag = false;
+		ArrayList<obj> o1 = new ArrayList<obj>();
+		mapread();
+	  	this.filename = "sample0.ser";
+	  	while(exists = new File(this.filename).exists()){
+	  	  objread();
+	     for ( int i = 0; i < o.size(); i++ ){
+	 	   c++;
+	 	   if( c < this.pagecount )
+	 	   		continue;
+	 	   k++;
+	       o1.add(o.get(i));
+			   if( k >= option ){
+			   		flag = true;
+			   		break;
+			   }
+	    }
+	    this.filename = "sample"+j+".ser";
+	    j++;
+	    if(flag)
+	    	break;
+		}
+		return o1;
+	}
 
 	public ArrayList<obj> view(){
 
